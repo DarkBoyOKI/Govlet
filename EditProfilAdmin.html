@@ -1,0 +1,101 @@
+<?php
+include 'connect.php';  //memanggil file connect.php supaya terkoneksi dengan database
+$NIK = $_GET['NIK'];
+$query = mysqli_query($con,"SELECT * FROM datauser WHERE NIK='$NIK'");   //melakukan query pada database
+$data = mysqli_fetch_array($query);
+$Nama_Lengkap = $data['Nama_Lengkap'];
+$NIK = $data['NIK'];
+$Telepon = $data['Telepon'];
+$Alamat = $data['Alamat'];
+$Email = $data['Email'];
+//melooping pada setiap data hasil query
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Edit Profil [G O V L E T]</title>
+  <link href="css/bootstrap.min.css" rel='stylesheet' type='text/css'/>
+  <link href="//fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+  <link href="//fonts.googleapis.com/css?family=Roboto+Condensed:300,400" rel="stylesheet">
+  <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all" />
+
+
+
+
+<div class="container">
+    <h1>Edit Profile</h1>
+  	<hr>
+    <form class="form-horizontal" role="form" method="post" action="EditAdmin_Post.php">
+	<div class="row">
+      <!-- left column -->
+      <div class="col-md-3">
+        <div class="text-center">
+          <?php
+  				 	if(!empty($data['FotoProfil'])){
+  						echo $data['FotoProfil'];
+  					}
+  					else {
+
+  						echo "<img src='fotoprofil.jpg' class='avatar img-circle' alt='avatar'>";
+  					}
+  					?>
+
+          <h6>Upload a different photo...</h6>
+
+          <input class="form-control" name="FotoProfil" type="file">
+        </div>
+      </div>
+
+      <!-- edit form column -->
+      <div class="col-md-9 personal-info">
+<br>
+        <h3>Personal info</h3>
+
+        <div class="form-group">
+          <label class="col-lg-3 control-label">NIK:</label>
+          <div class="col-lg-8">
+            <input name="NIK" class="form-control" placeholder="NIK" type="text" value="<?php echo $data['NIK'];?>" disabled>
+          </div>
+        </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Nama Lengkap:</label>
+            <div class="col-lg-8">
+              <input name="Nama_Lengkap" class="form-control" placeholder="Nama Lengkap" type="text" value="<?php echo $data['Nama_Lengkap'];?>">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Email:</label>
+            <div class="col-lg-8">
+              <input name="Email" class="form-control" placeholder="Email" type="text" value="<?php echo $data['Email'];?>">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Telepon:</label>
+            <div class="col-lg-8">
+              <input name="Telepon" class="form-control" placeholder="Telepon" type="text" value="<?php echo $data['Telepon'];?>">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label">Alamat:</label>
+            <div class="col-md-8">
+              <input name="Alamat" class="form-control" placeholder="Alamat" type="text" value="<?php echo $data['Alamat'];?>">
+            </div>
+          </div>
+          <br>
+          <div class="form-group">
+            <label class="col-md-3 control-label"></label>
+            <div class="col-md-8">
+              <input class="btn btn-primary" value="Save Changes" type="submit">
+              <span></span>
+              <input class="btn btn-default" value="Cancel" type="reset">
+            </div>
+          </div>
+      </div>
+  </div>
+  </form>
+</div>
+
+
+</head>
+</html>
